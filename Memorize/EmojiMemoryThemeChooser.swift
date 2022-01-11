@@ -46,7 +46,7 @@ struct EmojiMemoryThemeChooser: View {
                         Text("Random")
                     }.environmentObject(self.store)
                 })
-//            .environment(\.editMode, $editMode)
+            .environment(\.editMode, $editMode)
         }
     }
 }
