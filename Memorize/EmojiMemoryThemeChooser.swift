@@ -25,9 +25,7 @@ struct EmojiMemoryThemeChooser: View {
                     self.store.themes.remove(atOffsets: indexSet)
                 }
                 Spacer()
-                Button(action: {
-                    print("show rules!")
-                }) {
+                NavigationLink(destination: EmojiMemoryGameRules()) {
                     Text("Show me some rules!")
                         .font(.title)
                         .foregroundColor(Color.primary)
@@ -48,7 +46,7 @@ struct EmojiMemoryThemeChooser: View {
                         Text("Random")
                     }.environmentObject(self.store)
                 })
-            .environment(\.editMode, $editMode)
+//            .environment(\.editMode, $editMode)
         }
     }
 }

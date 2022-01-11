@@ -30,11 +30,14 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
 
                     let currentCardTimestamp = Date().timeIntervalSinceReferenceDate
                     let multiplier = max(5 - (currentCardTimestamp - firstCardTimestamp), 1)
-                    score += Int(2 * multiplier)
+                    print("currentCardTimestamp: \(currentCardTimestamp)")
+                    print("firstCardTimestamp: \(firstCardTimestamp)")
+                    print("разница между ними: \(currentCardTimestamp - firstCardTimestamp)")
+                    safeAddScore(Int(2 * multiplier))
                 }
                 else {
-                    score += seenCards.firstIndex(matching: cards[potentialMatchIndex]) != nil ? -1 : 0
-                    score += seenCards.firstIndex(matching: cards[chosenIndex]) != nil ? -1 : 0
+                    safeAddScore(seenCards.firstIndex(matching: cards[potentialMatchIndex]) != nil ? -1 : 0)
+                    safeAddScore(seenCards.firstIndex(matching: cards[chosenIndex]) != nil ? -1 : 0)
                 }
                 cards[chosenIndex].isFaceUp = true
             }
@@ -42,6 +45,22 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
                 indexOfTheOneAndOnlyFaceUpCard = chosenIndex
                 firstCardTimestamp = Date().timeIntervalSinceReferenceDate
             }
+        }
+    }
+    
+    mutating func helpUsed() {
+        safeAddScore(-5)
+    }
+    
+    mutating private func safeAddScore(_ addingValue: Int) {
+        if addingValue < 0 {
+            if abs(addingValue) > score {
+                score = 0
+            } else {
+                score += addingValue
+            }
+        } else {
+            score += addingValue
         }
     }
     

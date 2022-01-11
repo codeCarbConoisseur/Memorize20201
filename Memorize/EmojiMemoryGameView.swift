@@ -61,6 +61,7 @@ struct EmojiMemoryGameView: View {
                         .stroke(Color.primary, lineWidth: 1))
                 .shadow(radius: 5)
         }
+        .disabled(viewModel.isHelpUsed)
     }
     
     private func help() {

@@ -6,9 +6,6 @@ class EmojiMemoryThemeStore: ObservableObject {
 
     private var autosave: AnyCancellable?
     @Published var themes: [EmojiMemoryTheme]
-    lazy var randomTheme: EmojiMemoryTheme? = {
-        return themes.randomElement()
-    }()
         
     init() {
         let defaultsKey = "EmojiMemoryThemeStore"

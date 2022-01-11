@@ -55,9 +55,9 @@ class EmojiMemoryGame: ObservableObject {
         model.flipEverything(isFaceUp: false)
     }
     
-    
     func help() {
         model.flipEverything(isFaceUp: true)
+        model.helpUsed()
         _isHelpUsed = true
     }
     
@@ -69,6 +69,7 @@ class EmojiMemoryGame: ObservableObject {
     
     func restart() {
         _foundAllMatches = false
+        _isHelpUsed = false
         let emoji = theme.emoji.shuffled()
         let numberOfPairs: Int = theme.numberOfPairs
         model = MemoryGame(numberOfPairsOfCards: numberOfPairs) { emoji[$0] }
