@@ -12,9 +12,9 @@ struct EmojiMemoryGameRules: View {
     var body: some View {
         VStack {
             Text("Rules!")
-                .ruleModified()
+                .ruleModified(fontType: .headline)
             Spacer().frame(height: 50)
-            Text("основной текст правил")
+            Text("За совпадение карточек игроку начисляется 2 очка\nИгроку также может начислиться бонус в размере суммы оставшегося бонусного времени в каждой из совпаших карточек(оставшееся время округляется до целых)")
                 .ruleModified()
             Text("За каждое несовпадение ранее увиденной карты штраф 1 очко")
                 .ruleModified()

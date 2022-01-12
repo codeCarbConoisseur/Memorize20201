@@ -5,7 +5,6 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     private(set) var cards: [Card]
     private(set) var score = 0
     private var seenCards = [Card]()
-    private var firstCardTimestamp : TimeInterval = 0
 
     private var indexOfTheOneAndOnlyFaceUpCard: Int? {
         get {
@@ -27,13 +26,9 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
                 if cards[chosenIndex].content == cards[potentialMatchIndex].content {
                     cards[chosenIndex].isMatched = true
                     cards[potentialMatchIndex].isMatched = true
-
-                    let currentCardTimestamp = Date().timeIntervalSinceReferenceDate
-                    let multiplier = max(5 - (currentCardTimestamp - firstCardTimestamp), 1)
-                    print("currentCardTimestamp: \(currentCardTimestamp)")
-                    print("firstCardTimestamp: \(firstCardTimestamp)")
-                    print("разница между ними: \(currentCardTimestamp - firstCardTimestamp)")
-                    safeAddScore(Int(2 * multiplier))
+                    let firstCardBonusTimeRemaining = Int(round(cards[potentialMatchIndex].bonusTimeRemaining))
+                    let secondCardBonusTimeRemaining = Int(round(cards[chosenIndex].bonusTimeRemaining))
+                    safeAddScore(2 + firstCardBonusTimeRemaining + secondCardBonusTimeRemaining)
                 }
                 else {
                     safeAddScore(seenCards.firstIndex(matching: cards[potentialMatchIndex]) != nil ? -1 : 0)
@@ -43,7 +38,6 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
             }
             else {
                 indexOfTheOneAndOnlyFaceUpCard = chosenIndex
-                firstCardTimestamp = Date().timeIntervalSinceReferenceDate
             }
         }
     }

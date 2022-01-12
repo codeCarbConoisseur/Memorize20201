@@ -11,16 +11,18 @@ import SwiftUI
 
 struct Rule: ViewModifier {
     
+    var font: Font
+    
     func body(content: Content) -> some View {
         content
             .multilineTextAlignment(.center)
-            .font(.callout)
+            .font(font)
             .foregroundColor(.orange)
     }
 }
 
 extension View {
-    func ruleModified() -> some View {
-        modifier(Rule())
+    func ruleModified(fontType: Font = Font.callout) -> some View {
+        modifier(Rule(font: fontType))
     }
 }
